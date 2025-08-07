@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragon Ball Z - Início</title>
+    <!-- Tailwind CSS CDN para facilitar o estilo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonte Inter do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos CSS embutidos */
+
+        /* Define a fonte Inter para todo o corpo do documento */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Estilos para o contêiner principal da tela de início */
+        .min-h-screen {
+            min-height: 100vh; /* Garante que o contêiner ocupe a altura total da tela */
+        }
+
+        /* Estilos para o fundo da página, cobrindo todo o espaço disponível */
+        .bg-cover {
+            background-size: cover; /* A imagem de fundo cobre toda a área */
+        }
+
+        .bg-center {
+            background-position: center; /* Centraliza a imagem de fundo */
+        }
+
+        /* Estilos para o overlay escuro e o card de conteúdo */
+        .bg-opacity-70 {
+            background-color: rgba(0, 0, 0, 0.7); /* Fundo preto com 70% de opacidade */
+        }
+
+        .rounded-lg {
+            border-radius: 0.5rem; /* Cantos arredondados */
+        }
+
+        .shadow-lg {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Sombra para o card */
+        }
+
+        /* Estilos para o título "DRAGON BALL Z" */
+        .text-yellow-400 {
+            color: #facc15; /* Cor amarela */
+        }
+
+        .drop-shadow-lg {
+            filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.04)) drop-shadow(0 4px 3px rgba(0, 0, 0, 0.1)); /* Sombra de texto */
+        }
+
+        /* Estilos para o botão "INICIAR" */
+        .bg-orange-600 {
+            background-color: #ea580c; /* Cor laranja */
+        }
+
+        .hover\:bg-orange-700:hover {
+            background-color: #c2410c; /* Cor laranja mais escura ao passar o mouse */
+        }
+
+        .rounded-full {
+            border-radius: 9999px; /* Botão totalmente arredondado */
+        }
+
+        .transform {
+            transform: none; /* Reseta qualquer transformação padrão */
+        }
+
+        .transition {
+            transition-property: all; /* Aplica transição a todas as propriedades */
+            transition-duration: 300ms; /* Duração da transição de 300ms */
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); /* Função de temporização da transição */
+        }
+
+        .hover\:scale-105:hover {
+            transform: scale(1.05); /* Aumenta o tamanho do botão em 5% ao passar o mouse */
+        }
+
+        .focus\:outline-none:focus {
+            outline: 2px solid transparent; /* Remove o contorno padrão de foco */
+            outline-offset: 2px;
+        }
+
+        .focus\:ring-4:focus {
+            box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.5); /* Anel de foco amarelo */
+        }
+
+        .focus\:ring-orange-500:focus {
+            --tw-ring-color: #f97316; /* Cor do anel de foco laranja */
+        }
+
+        .focus\:ring-opacity-50:focus {
+            --tw-ring-opacity: 0.5; /* Opacidade do anel de foco */
+        }
+
+        /* Estilos para o placeholder de fundo */
+        #background-placeholder {
+            position: absolute; /* Posiciona o div de forma absoluta */
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.5; /* Opacidade para que o fundo principal ainda seja visível */
+            z-index: 0; /* Garante que esteja atrás do conteúdo principal */
+        }
+
+        /* Estilos para a seção de personagens */
+        .character-section {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            color: white;
+            max-width: 90%;
+            margin: 2rem auto;
+            text-align: left;
+        }
+
+        .character-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            text-align: center; /* Centraliza o conteúdo do card, incluindo a imagem */
+        }
+
+        /* Estilos para o quiz */
+        .quiz-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .quiz-option {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 0.75rem;
+            border-radius: 0.25rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .quiz-option:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .quiz-option.selected {
+            background-color: #facc15; /* Amarelo para opção selecionada */
+            color: #333;
+        }
+
+        .quiz-option.correct {
+            background-color: #34d399; /* Verde para resposta correta */
+            color: #333;
+        }
+
+        .quiz-option.incorrect {
+            background-color: #ef4444; /* Vermelho para resposta incorreta */
+            color: #fff;
+        }
+    </style>
+</head>
+<body class="font-inter">
+    <!-- Contêiner principal da tela de início -->
+    <div id="landing-page-container" class="flex items-center justify-center min-h-screen bg-cover bg-center" style="background-image: url('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2FjYjVmZDU2YjYxN2Y5ZjE3M2QyZTY1YzQ4MjkzOTMwYjQzMjRhZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/VxbR06J2B7f3L7xXlV/giphy.gif');">
+
+        <!-- Espaço reservado para outra imagem de fundo (opcional) -->
+        <div id="background-placeholder">
+            <!-- Este div pode ser usado para uma segunda camada de fundo ou para alternar imagens -->
+        </div>
+
+        <div class="bg-black bg-opacity-70 p-8 md:p-12 rounded-lg shadow-lg text-center max-w-md mx-4 relative z-10">
+            <h1 class="text-4xl md:text-6xl font-bold text-yellow-400 mb-6 drop-shadow-lg">
+                DRAGON BALL Z
+            </h1>
+            <p class="text-xl md:text-2xl text-white mb-8">
+                Bem-vindo ao universo de Dragon Ball!
+            </p>
+            <button id="startButton" class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-orange-500 focus:ring-opacity-50">
+                INICIAR
+            </button>
+        </div>
+    </div>
+
+    <!-- Seção de descrição dos personagens e quiz (inicialmente oculta) -->
+    <div id="character-description-section" class="hidden min-h-screen bg-cover bg-center flex flex-col items-center justify-center" style="background-image: url('https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2FjYjVmZDU2YjYxN2Y5ZjE3M2QyZTY1YzQ4MjkzOTMwYjQzMjRhZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/VxbR06J2B7f3L7xXlV/giphy.gif');">
+        <div class="character-section">
+            <h2 class="text-3xl md:text-4xl font-bold text-yellow-400 mb-6 text-center">Personagens de Dragon Ball Z</h2>
+
+            <!-- Contêineres de personagens -->
+            <div id="character-cards-container">
+                <h3 class="text-2xl font-bold text-red-500 mb-4">Vilões</h3>
+                <div id="villains-container" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    <!-- Personagens vilões serão inseridos aqui pelo JS -->
+                </div>
+
+                <h3 class="text-2xl font-bold text-green-500 mb-4">Heróis</h3>
+                <div id="heroes-container" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    <!-- Personagens heróis serão inseridos aqui pelo JS -->
+                </div>
+
+                <h3 class="text-2xl font-bold text-blue-500 mb-4">Aleatórios</h3>
+                <div id="random-container" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    <!-- Personagens aleatórios serão inseridos aqui pelo JS -->
+                </div>
+
+                <button id="startQuizButton" class="mt-8 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-500 focus:ring-opacity-50 mx-auto block">
+                    INICIAR QUIZ
+                </button>
+            </div>
+
+            <!-- Contêiner do Quiz (inicialmente oculto) -->
+            <div id="quiz-container" class="hidden quiz-container">
+                <h3 id="question-number" class="text-xl font-bold text-yellow-400 mb-4"></h3>
+                <p id="question-text" class="text-lg mb-6"></p>
+                <div id="quiz-options" class="flex flex-col gap-2 mb-6">
+                    <!-- Opções do quiz serão inseridas aqui pelo JS -->
+                </div>
+                <button id="submitAnswerButton" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-full shadow-lg transform transition duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-opacity-50">
+                    RESPONDER
+                </button>
+                <div id="quiz-result" class="text-center mt-4 text-xl font-bold"></div>
+                <button id="restartQuizButton" class="hidden mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full shadow-lg transform transition duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 mx-auto block">
+                    REINICIAR QUIZ
+                </button>
+                <button id="backToCharactersButton" class="mt-4 bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-full shadow-lg transform transition duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-500 focus:ring-opacity-50 mx-auto block">
+                    VOLTAR PARA PERSONAGENS
+                </button>
+            </div>
+
+            <button id="backButton" class="mt-8 bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-gray-500 focus:ring-opacity-50 mx-auto block">
+                VOLTAR
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript embutido
+        document.addEventListener('DOMContentLoaded', function() {
+            const startButton = document.getElementById('startButton');
+            const startQuizButton = document.getElementById('startQuizButton');
+            const submitAnswerButton = document.getElementById('submitAnswerButton');
+            const restartQuizButton = document.getElementById('restartQuizButton');
+            const backButton = document.getElementById('backButton');
+            const backToCharactersButton = document.getElementById('backToCharactersButton');
+
+            const landingPageContainer = document.getElementById('landing-page-container');
+            const characterDescriptionSection = document.getElementById('character-description-section');
+            const characterCardsContainer = document.getElementById('character-cards-container');
+            const quizContainer = document.getElementById('quiz-container');
+
+            const questionNumberElement = document.getElementById('question-number');
+            const questionTextElement = document.getElementById('question-text');
+            const quizOptionsElement = document.getElementById('quiz-options');
+            const quizResultElement = document.getElementById('quiz-result');
+
+            let currentQuestionIndex = 0;
+            let score = 0;
+            let selectedOption = null;
+
+            const characters = {
+                villains: [
+                    { name: 'Freeza', description: 'Imperador do universo, conhecido por sua crueldade e poder destrutivo.', imageUrl: 'https://i.pinimg.com/originals/2d/46/e9/2d46e9c657e3e4349a88fb8799a3cbeb.gif' },
+                    { name: 'Cell', description: 'Bio-androide criado para ser o guerreiro perfeito, absorvendo outros para aumentar seu poder.', imageUrl: 'https://i.pinimg.com/originals/32/7c/79/327c79c0f508b74f29e6ae9c25d94452.gif' },
+                    { name: 'Majin Boo', description: 'Uma criatura mágica com a capacidade de absorver outros seres e mudar de forma.', imageUrl: 'https://media1.tenor.com/m/gslzSo0_g3QAAAAC/caine-majin-buu.gif' }
+                ],
+                heroes: [
+                    { name: 'Goku', description: 'O principal protagonista, um Saiyajin puro de coração que protege a Terra e seus amigos.', imageUrl: 'https://i.pinimg.com/originals/86/68/d9/8668d99b7fd5e3855ef8881b7000b98f.gif' },
+                    { name: 'Vegeta', description: 'Príncipe dos Saiyajins, inicialmente um rival de Goku, mas depois um aliado poderoso.', imageUrl: 'https://i.pinimg.com/originals/92/13/b3/9213b36357adb93b0f1d2406adf7f645.gif' },
+                    { name: 'Piccolo', description: 'Um Namekuseijin, ex-inimigo de Goku que se torna um de seus aliados mais importantes e mentor de Gohan.', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH6DE1GRIF7UIS_7khn-K2Fa8R09qC6bh0sg&s' }
+                ],
+                random: [
+                    { name: 'Kuririn', description: 'O melhor amigo de Goku, um dos humanos mais fortes e corajosos, apesar de sua baixa estatura.', imageUrl: 'https://i.pinimg.com/originals/68/c2/76/68c2761a882ac160f84d657868c08b40.gif' },
+                    { name: 'Mr. Popo', description: 'Guardião do Palácio de Kami-sama, mestre de artes marciais e figura misteriosa com grande sabedoria.', imageUrl: 'https://media1.tenor.com/m/rUpNz5ljeW8AAAAC/mr-popo-popo.gif' },
+                    { name: 'Mr. Satan', description: 'Campeão mundial de artes marciais, embora sem poderes, é uma figura cômica e importante para a paz na Terra.', imageUrl: 'https://i.pinimg.com/originals/d4/35/67/d43567738ca28bbebeff8682be32ff86.gif' }
+                ]
+            };
+
+            const quizQuestions = [
+                {
+                    question: 'Qual é o nome do principal protagonista de Dragon Ball Z?',
+                    options: ['Vegeta', 'Gohan', 'Goku', 'Piccolo'],
+                    correctAnswer: 'Goku'
+                },
+                {
+                    question: 'Qual vilão é conhecido por sua forma dourada?',
+                    options: ['Cell', 'Majin Boo', 'Freeza', 'Broly'],
+                    correctAnswer: 'Freeza'
+                },
+                {
+                    question: 'Quem é o melhor amigo de Goku e um dos humanos mais fortes?',
+                    options: ['Yamcha', 'Tenshinhan', 'Kuririn', 'Chaos'],
+                    correctAnswer: 'Kuririn'
+                },
+                {
+                    question: 'Qual a técnica mais famosa de Goku?',
+                    options: ['Final Flash', 'Makankosappo', 'Kamehameha', 'Galick Gun'],
+                    correctAnswer: 'Kamehameha'
+                },
+                {
+                    question: 'Quem é o criador de Cell?',
+                    options: ['Dr. Gero', 'Freeza', 'Babidi', 'Rei Cold'],
+                    correctAnswer: 'Dr. Gero'
+                }
+            ];
+
+            function createCharacterCard(character) {
+                const card = document.createElement('div');
+                card.className = 'character-card';
+                card.innerHTML = `
+                    <img src="${character.imageUrl}" alt="${character.name}" class="w-24 h-24 rounded-full mx-auto mb-2 object-cover">
+                    <h4 class="text-xl font-semibold mb-2">${character.name}</h4>
+                    <p class="text-sm">${character.description}</p>
+                `;
+                return card;
+            }
+
+            function displayCharacters() {
+                const villainsContainer = document.getElementById('villains-container');
+                const heroesContainer = document.getElementById('heroes-container');
+                const randomContainer = document.getElementById('random-container');
+
+                villainsContainer.innerHTML = ''; // Limpa antes de adicionar
+                heroesContainer.innerHTML = '';
+                randomContainer.innerHTML = '';
+
+                characters.villains.forEach(char => {
+                    villainsContainer.appendChild(createCharacterCard(char));
+                });
+                characters.heroes.forEach(char => {
+                    heroesContainer.appendChild(createCharacterCard(char));
+                });
+                characters.random.forEach(char => {
+                    randomContainer.appendChild(createCharacterCard(char));
+                });
+            }
+
+            function loadQuestion() {
+                selectedOption = null;
+                quizResultElement.textContent = '';
+                submitAnswerButton.classList.remove('hidden');
+                restartQuizButton.classList.add('hidden');
+
+                if (currentQuestionIndex < quizQuestions.length) {
+                    const question = quizQuestions[currentQuestionIndex];
+                    questionNumberElement.textContent = `Questão ${currentQuestionIndex + 1} de ${quizQuestions.length}`;
+                    questionTextElement.textContent = question.question;
+                    quizOptionsElement.innerHTML = '';
+
+                    question.options.forEach(option => {
+                        const optionElement = document.createElement('div');
+                        optionElement.className = 'quiz-option';
+                        optionElement.textContent = option;
+                        optionElement.addEventListener('click', () => selectOption(optionElement));
+                        quizOptionsElement.appendChild(optionElement);
+                    });
+                } else {
+                    showQuizResult();
+                }
+            }
+
+            function selectOption(optionElement) {
+                // Remove 'selected' class from all options
+                Array.from(quizOptionsElement.children).forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                // Add 'selected' class to the clicked option
+                optionElement.classList.add('selected');
+                selectedOption = optionElement.textContent;
+            }
+
+            function checkAnswer() {
+                if (selectedOption === null) {
+                    quizResultElement.textContent = 'Por favor, selecione uma opção!';
+                    quizResultElement.style.color = '#ef4444'; // Red
+                    return;
+                }
+
+                const question = quizQuestions[currentQuestionIndex];
+                const options = Array.from(quizOptionsElement.children);
+
+                options.forEach(opt => {
+                    opt.style.pointerEvents = 'none'; // Disable clicking after answering
+                    if (opt.textContent === question.correctAnswer) {
+                        opt.classList.add('correct');
+                    } else if (opt.textContent === selectedOption) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+
+                if (selectedOption === question.correctAnswer) {
+                    score++;
+                    quizResultElement.textContent = 'Correto!';
+                    quizResultElement.style.color = '#34d399'; // Green
+                } else {
+                    quizResultElement.textContent = 'Incorreto!';
+                    quizResultElement.style.color = '#ef4444'; // Red
+                }
+
+                submitAnswerButton.classList.add('hidden');
+                if (currentQuestionIndex < quizQuestions.length - 1) {
+                    setTimeout(() => {
+                        currentQuestionIndex++;
+                        loadQuestion();
+                    }, 1500); // Wait 1.5 seconds before loading next question
+                } else {
+                    setTimeout(() => {
+                        showQuizResult();
+                    }, 1500);
+                }
+            }
+
+            function showQuizResult() {
+                questionNumberElement.textContent = 'Quiz Finalizado!';
+                questionTextElement.textContent = `Sua pontuação final: ${score} de ${quizQuestions.length}`;
+                quizOptionsElement.innerHTML = '';
+                submitAnswerButton.classList.add('hidden');
+                restartQuizButton.classList.remove('hidden');
+                quizResultElement.textContent = ''; // Clear previous result message
+            }
+
+            function resetQuiz() {
+                currentQuestionIndex = 0;
+                score = 0;
+                loadQuestion();
+            }
+
+            // Event Listeners
+            startButton.addEventListener('click', function() {
+                landingPageContainer.classList.add('hidden'); // Oculta a tela de início
+                characterDescriptionSection.classList.remove('hidden'); // Mostra a seção de personagens
+                characterCardsContainer.classList.remove('hidden'); // Garante que os cards de personagem estejam visíveis
+                quizContainer.classList.add('hidden'); // Garante que o quiz esteja oculto
+                displayCharacters(); // Popula os personagens
+            });
+
+            startQuizButton.addEventListener('click', function() {
+                characterCardsContainer.classList.add('hidden'); // Oculta os cards de personagem
+                quizContainer.classList.remove('hidden'); // Mostra o quiz
+                resetQuiz(); // Inicia o quiz
+            });
+
+            submitAnswerButton.addEventListener('click', checkAnswer);
+            restartQuizButton.addEventListener('click', resetQuiz);
+
+            // Back button logic
+            backButton.addEventListener('click', function() {
+                // Always go back to landing page from character/quiz section
+                characterDescriptionSection.classList.add('hidden');
+                landingPageContainer.classList.remove('hidden');
+            });
+
+            backToCharactersButton.addEventListener('click', function() {
+                quizContainer.classList.add('hidden'); // Oculta o quiz
+                characterCardsContainer.classList.remove('hidden'); // Mostra os cards de personagem
+            });
+        });
+    </script>
+</body>
+</html>
