@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELETROFLEX - Nossos Drones</title>
+    <!-- Tailwind CSS CDN para estilos rápidos e responsivos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Importar fontes do Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Orbitron:wght@400;500;700;900&display=swap');
+
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Lato', 'sans-serif'], // Lato para texto geral
+                        display: ['Orbitron', 'sans-serif'], // Orbitron para títulos
+                    },
+                    colors: {
+                        // Paleta com tons de preto, cinza e dourado
+                        nasaGold: '#BF9000',    // Mantendo um toque de dourado para contraste
+                        nasaGray: '#D3D3D3',    // Cinza claro para textos e detalhes
+                        nasaDark: '#1A1A2E',    // Cor escura para fundos e elementos
+                        nasaBlack: '#0A0A0A',   // Preto puro para fundo principal
+                        nasaMediumGray: '#555555', // Um cinza médio para detalhes
+                    }
+                }
+            }
+        }
+    </style>
+    <style>
+        /* Estilos customizados para a estética NASA */
+        body {
+            background-color: #000; /* Fundo preto para o espaço */
+            overflow-x: hidden; /* Evita rolagem horizontal */
+        }
+        .bg-stars {
+            background-image: url('https://placehold.co/1920x1080/0A0A0A/FFFFFF?text=Fundo+Estrelas'); /* Placeholder para fundo de estrelas */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Fundo fixo para efeito paralaxe */
+        }
+        .gradient-overlay {
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.9) 100%);
+        }
+        .text-shadow-nasa {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        /* Animação para elementos em foco */
+        .animate-fade-in {
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-up {
+            animation: slideUp 1s ease-out forwards;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="font-sans text-white antialiased bg-stars">
+
+    <!-- Cabeçalho e Navegação -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-nasaDark bg-opacity-90 shadow-lg rounded-b-lg">
+        <nav class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <!-- Logo em SVG com cores ajustadas para preto e cinza -->
+                <svg class="h-12 w-12 rounded-full border-2 border-nasaGold" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="48" fill="#0A0A0A"/>
+                    <path d="M 30 35 L 70 35 L 70 25 L 30 25 C 20 25 20 35 30 35 Z M 30 45 L 70 45 L 70 55 L 30 55 C 20 55 20 45 30 45 Z M 30 65 L 70 65 L 70 75 L 30 75 C 20 75 20 65 30 65 Z" fill="#BF9000"/>
+                    <polygon points="75 30, 85 50, 75 70" fill="#FFFFFF"/>
+                </svg>
+                <a href="index.html" class="text-3xl font-bold text-nasaGold tracking-wider text-shadow-nasa font-display">ELETROFLEX</a>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-lg text-nasaGray hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-lg hover:bg-nasaMediumGray">Página Inicial</a>
+                <a href="drones.html" class="text-lg text-nasaGold hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-lg hover:bg-nasaMediumGray">Drones</a>
+                <a href="acessorios.html" class="text-lg text-nasaGray hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-lg hover:bg-nasaMediumGray">Acessórios</a>
+                <a href="suporte.html" class="text-lg text-nasaGray hover:text-white transition duration-300 ease-in-out px-4 py-2 rounded-lg hover:bg-nasaMediumGray">Suporte</a>
+            </div>
+            <!-- Menu Hamburguer para Mobile -->
+            <button id="mobile-menu-button" class="md:hidden text-nasaGray focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </nav>
+        <!-- Menu Mobile (oculto por padrão) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-nasaDark bg-opacity-95 py-4">
+            <a href="index.html" class="block text-center text-lg text-nasaGray hover:text-white py-2 px-4 border-b border-nasaMediumGray transition duration-300 ease-in-out">Página Inicial</a>
+            <a href="drones.html" class="block text-center text-lg text-nasaGold hover:text-white py-2 px-4 border-b border-nasaMediumGray transition duration-300 ease-in-out">Drones</a>
+            <a href="acessorios.html" class="block text-center text-lg text-nasaGray hover:text-white py-2 px-4 border-b border-nasaMediumGray transition duration-300 ease-in-out">Acessórios</a>
+            <a href="suporte.html" class="block text-center text-lg text-nasaGray hover:text-white py-2 px-4 transition duration-300 ease-in-out">Suporte</a>
+        </div>
+    </header>
+
+    <main class="relative z-10 min-h-screen pt-24 pb-16 gradient-overlay">
+        <section class="container mx-auto px-6 py-16 text-center">
+            <h1 class="text-6xl md:text-7xl font-extrabold leading-tight mb-12 text-nasaGold text-shadow-nasa font-display animate-fade-in">
+                Nossa Coleção Completa de Drones
+            </h1>
+            <p class="text-xl md:text-2xl text-nasaGray mb-16 leading-relaxed animate-fade-in" style="animation-delay: 0.2s;">
+                Descubra a tecnologia de ponta e o design inovador que impulsionam cada um dos nossos modelos.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Drone Card 1: Explorer X -->
+                <div class="bg-nasaDark p-8 rounded-2xl shadow-lg border-2 border-nasaGold flex flex-col items-center text-center transform hover:translate-y-2 transition duration-300 ease-in-out animate-slide-up">
+                    <div class="w-full h-64 bg-nasaBlack rounded-xl mb-6 flex items-center justify-center overflow-hidden border border-nasaMediumGray">
+                        <img src="https://images.pexels.com/photos/336232/pexels-photo-336232.jpeg" alt="Drone Explorer X" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-3xl font-bold mb-3 text-nasaGold font-display">Explorer X</h3>
+                    <p class="text-lg text-nasaGray mb-4 flex-grow">Equipado para missões de reconhecimento de longa distância e mapeamento 3D de alta resolução.</p>
+                    <span class="text-4xl font-extrabold text-white mb-6">R$ 9.899,00</span>
+                    <button class="bg-nasaGold hover:bg-nasaMediumGray text-white font-bold py-3 px-6 rounded-full shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+                        Detalhes
+                    </button>
+                </div>
+
+                <!-- Drone Card 2: Aero Pro -->
+                <div class="bg-nasaDark p-8 rounded-2xl shadow-lg border-2 border-nasaGold flex flex-col items-center text-center transform hover:translate-y-2 transition duration-300 ease-in-out animate-slide-up" style="animation-delay: 0.2s;">
+                    <div class="w-full h-64 bg-nasaBlack rounded-xl mb-6 flex items-center justify-center overflow-hidden border border-nasaMediumGray">
+                        <img src="https://images.pexels.com/photos/724921/pexels-photo-724921.jpeg" alt="Drone Aero Pro" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-3xl font-bold mb-3 text-nasaGold font-display">Aero Pro</h3>
+                    <p class="text-lg text-nasaGray mb-4 flex-grow">Ideal para profissionais de fotografia e vídeo, com gimbal estabilizado e voo suave.</p>
+                    <span class="text-4xl font-extrabold text-white mb-6">R$ 12.599,00</span>
+                    <button class="bg-nasaGold hover:bg-nasaMediumGray text-white font-bold py-3 px-6 rounded-full shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+                        Detalhes
+                    </button>
+                </div>
+
+                <!-- Drone Card 3: Sky Guardian -->
+                <div class="bg-nasaDark p-8 rounded-2xl shadow-lg border-2 border-nasaGold flex flex-col items-center text-center transform hover:translate-y-2 transition duration-300 ease-in-out animate-slide-up" style="animation-delay: 0.4s;">
+                    <div class="w-full h-64 bg-nasaBlack rounded-xl mb-6 flex items-center justify-center overflow-hidden border border-nasaMediumGray">
+                        <img src="https://images.pexels.com/photos/1034812/pexels-photo-1034812.jpeg" alt="Drone Sky Guardian" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-3xl font-bold mb-3 text-nasaGold font-display">Sky Guardian</h3>
+                    <p class="text-lg text-nasaGray mb-4 flex-grow">Segurança e vigilância com câmeras térmicas e sensores de movimento avançados.</p>
+                    <span class="text-4xl font-extrabold text-white mb-6">R$ 15.199,00</span>
+                    <button class="bg-nasaGold hover:bg-nasaMediumGray text-white font-bold py-3 px-6 rounded-full shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+                        Detalhes
+                    </button>
+                </div>
+
+                <!-- Drone Card 4: Lightspeed -->
+                <div class="bg-nasaDark p-8 rounded-2xl shadow-lg border-2 border-nasaGold flex flex-col items-center text-center transform hover:translate-y-2 transition duration-300 ease-in-out animate-slide-up" style="animation-delay: 0.6s;">
+                    <div class="w-full h-64 bg-nasaBlack rounded-xl mb-6 flex items-center justify-center overflow-hidden border border-nasaMediumGray">
+                        <img src="https://images.pexels.com/photos/997131/pexels-photo-997131.jpeg" alt="Drone LightSpeed" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-3xl font-bold mb-3 text-nasaGold font-display">Lightspeed</h3>
+                    <p class="text-lg text-nasaGray mb-4 flex-grow">O drone de corrida ultrarrápido, construído para velocidade e manobras extremas.</p>
+                    <span class="text-4xl font-extrabold text-white mb-6">R$ 6.299,00</span>
+                    <button class="bg-nasaGold hover:bg-nasaMediumGray text-white font-bold py-3 px-6 rounded-full shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+                        Detalhes
+                    </button>
+                </div>
+
+                <!-- Drone Card 5: Orbital View -->
+                <div class="bg-nasaDark p-8 rounded-2xl shadow-lg border-2 border-nasaGold flex flex-col items-center text-center transform hover:translate-y-2 transition duration-300 ease-in-out animate-slide-up" style="animation-delay: 0.8s;">
+                    <div class="w-full h-64 bg-nasaBlack rounded-xl mb-6 flex items-center justify-center overflow-hidden border border-nasaMediumGray">
+                        <img src="https://images.pexels.com/photos/1087182/pexels-photo-1087182.jpeg" alt="Drone Orbital View" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-3xl font-bold mb-3 text-nasaGold font-display">Orbital View</h3>
+                    <p class="text-lg text-nasaGray mb-4 flex-grow">Câmera 360° e capacidade de voo em ambientes desafiadores para vistas panorâmicas.</p>
+                    <span class="text-4xl font-extrabold text-white mb-6">R$ 14.999,00</span>
+                    <button class="bg-nasaGold hover:bg-nasaMediumGray text-white font-bold py-3 px-6 rounded-full shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+                        Detalhes
+                    </button>
+                </div>
+
+                <!-- Drone Card 6: Stratos -->
+                <div class="bg-nasaDark p-8 rounded-2xl shadow-lg border-2 border-nasaGold flex flex-col items-center text-center transform hover:translate-y-2 transition duration-300 ease-in-out animate-slide-up" style="animation-delay: 1.0s;">
+                    <div class="w-full h-64 bg-nasaBlack rounded-xl mb-6 flex items-center justify-center overflow-hidden border border-nasaMediumGray">
+                        <img src="https://images.pexels.com/photos/319968/pexels-photo-319968.jpeg" alt="Drone Stratos" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-3xl font-bold mb-3 text-nasaGold font-display">Stratos</h3>
+                    <p class="text-lg text-nasaGray mb-4 flex-grow">Projetado para atingir grandes altitudes, perfeito para pesquisa atmosférica e monitoramento.</p>
+                    <span class="text-4xl font-extrabold text-white mb-6">R$ 18.599,00</span>
+                    <button class="bg-nasaGold hover:bg-nasaMediumGray text-white font-bold py-3 px-6 rounded-full shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+                        Detalhes
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé (igual à página inicial) -->
+    <footer class="bg-nasaDark py-8 text-center text-nasaGray text-lg rounded-t-lg shadow-inner">
+        <p>&copy; 2025 ELETROFLEX. Todos os direitos reservados. | <a href="#" class="text-nasaMediumGray hover:underline">Política de Privacidade</a> | <a href="#" class="text-nasaMediumGray hover:underline">Termos de Serviço</a></p>
+    </footer>
+
+    <!-- JavaScript para interatividade (Ex: Menu Hamburguer) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            const animateOnScrollElements = document.querySelectorAll('.animate-fade-in, .animate-slide-up');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            animateOnScrollElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                if (el.classList.contains('animate-slide-up')) {
+                    el.style.transform = 'translateY(50px)';
+                }
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
+
