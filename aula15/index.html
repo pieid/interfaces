@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POLOARFRI - Sua Loja de Eletrodomésticos</title>
+    <!-- Incluindo Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuração do Tailwind CSS para usar as novas fontes -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Roboto', 'sans-serif'], /* Nova fonte para texto geral */
+                        heading: ['Playfair Display', 'serif'], /* Nova fonte para títulos */
+                    },
+                    colors: {
+                        'primary-blue': '#1E40AF', /* Azul primário escuro */
+                        'secondary-blue': '#3B82F6', /* Azul secundário */
+                        'light-blue': '#DBEAFE', /* Azul claro para fundos */
+                        'neutral-bg': '#F8FAFC', /* Fundo neutro e profissional */
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts - Roboto e Playfair Display -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Fundo profissional e limpo */
+        body {
+            background-color: theme('colors.neutral-bg'); /* Usando cor definida no Tailwind */
+        }
+        /* Estilos customizados para o ícone do carrinho */
+        .cart-icon {
+            font-size: 1.5rem; /* Aumenta o tamanho do ícone */
+            color: #1E40AF; /* Cor azul escuro para o ícone */
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+        .cart-icon:hover {
+            transform: scale(1.1); /* Efeito de zoom ao passar o mouse */
+        }
+        /* Estilo para simular borda em foco dos inputs */
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); /* secondary-blue com transparência */
+        }
+        select:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased">
+    <!-- Cabeçalho Principal com Barra de Navegação -->
+    <header class="bg-gradient-to-r from-primary-blue to-secondary-blue text-white py-4 shadow-lg">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-4">
+            <h1 class="text-4xl md:text-5xl font-heading font-bold tracking-wider mb-4 md:mb-0 cursor-pointer" id="homeLogo">POLOARFRI</h1>
+            <nav class="flex items-center space-x-4 md:space-x-6 w-full md:w-auto justify-center">
+                <!-- Barra de Pesquisa -->
+                <div class="relative w-full md:w-64">
+                    <input type="text" id="searchInput" placeholder="Pesquisar produtos..." class="w-full pl-10 pr-4 py-2 rounded-full bg-blue-100 text-gray-900 focus:ring-2 focus:ring-blue-300">
+                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"></i>
+                </div>
+                <!-- Botão de Login -->
+                <button id="loginBtn" class="bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded-full shadow-md transition duration-300 flex items-center gap-2">
+                    <i class="fas fa-user"></i> Login
+                </button>
+                <!-- Botão de Suporte -->
+                <button id="supportBtn" class="bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded-full shadow-md transition duration-300 flex items-center gap-2">
+                    <i class="fas fa-headset"></i> Suporte
+                </button>
+                <!-- Botão de Promoção -->
+                <button id="promoBtn" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-full shadow-md transition duration-300 flex items-center gap-2">
+                    <i class="fas fa-tags"></i> Promoção
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Barra de Filtros/Classificação (Visível apenas na tela inicial) -->
+    <section id="filterBar" class="container mx-auto px-4 py-4 mt-4">
+        <div class="flex flex-col md:flex-row items-center justify-between bg-white p-4 rounded-xl shadow-md border border-blue-200">
+            <h3 class="text-xl font-semibold text-primary-blue mb-2 md:mb-0">Filtrar por:</h3>
+            <div class="flex items-center space-x-4">
+                <select id="categoryFilter" class="p-2 border border-blue-300 rounded-md focus:ring-2 focus:ring-blue-300 text-gray-700">
+                    <option value="all">Todas as Categorias</option>
+                    <option value="ar_condicionado">Ar Condicionados</option>
+                    <option value="frigobar">Frigobares</option>
+                    <option value="ventiladores_climatizadores">Ventiladores e Climatizadores</option>
+                    <option value="maquinas_lavar">Máquinas de Lavar</option>
+                    <option value="fogões_fornos">Fogões e Fornos</option>
+                    <option value="eletroportateis">Eletroportáteis</option>
+                </select>
+                <select id="conditionFilter" class="p-2 border border-blue-300 rounded-md focus:ring-2 focus:ring-blue-300 text-gray-700">
+                    <option value="all">Todas as Condições</option>
+                    <option value="Novo">Novo</option>
+                    <option value="Excelente">Excelente</option>
+                    <option value="Muito Bom">Muito Bom</option>
+                    <option value="Bom">Bom</option>
+                    <option value="Reembalado">Reembalado</option>
+                    <option value="Personalizado">Personalizado</option>
+                    <option value="Regular">Regular</option>
+                </select>
+                <button id="applyFilterBtn" class="bg-secondary-blue hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow-sm transition duration-300">
+                    Aplicar Filtro
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Telas de Conteúdo -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Tela Inicial (Produtos) -->
+        <section id="homeScreen">
+            <div id="productsContainer">
+                <!-- Produtos serão inseridos aqui pelo JavaScript -->
+                <p id="noProductsMessage" class="hidden text-center text-xl text-gray-600">Nenhum produto encontrado com os filtros selecionados.</p>
+            </div>
+            <!-- Seção de Avaliação (apenas na tela inicial) -->
+            <section class="container mx-auto px-4 py-8">
+                <h2 class="text-4xl font-heading font-bold text-center text-primary-blue mb-8 py-4 bg-white rounded-lg shadow-md">DEIXE SUA AVALIAÇÃO <span class="text-yellow-500">☆☆☆☆☆</span></h2>
+            </section>
+        </section>
+
+        <!-- Tela de Login -->
+        <section id="loginScreen" class="hidden bg-white p-8 rounded-xl shadow-lg border border-blue-200 max-w-md mx-auto my-10">
+            <h2 class="text-3xl font-heading font-bold text-center text-primary-blue mb-6">Acessar Conta</h2>
+            <form class="space-y-4">
+                <div>
+                    <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                    <input type="email" id="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:ring-blue-300" placeholder="seuemail@exemplo.com">
+                </div>
+                <div>
+                    <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Senha:</label>
+                    <input type="password" id="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:ring-blue-300" placeholder="********">
+                </div>
+                <button type="submit" class="bg-primary-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-full transition duration-300">Entrar</button>
+            </form>
+            <button class="mt-6 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-full w-full transition duration-300" onclick="showScreen('homeScreen')">Voltar à Loja</button>
+        </section>
+
+        <!-- Tela de Suporte -->
+        <section id="supportScreen" class="hidden bg-white p-8 rounded-xl shadow-lg border border-blue-200 max-w-md mx-auto my-10">
+            <h2 class="text-3xl font-heading font-bold text-center text-primary-blue mb-6">Central de Suporte</h2>
+            <p class="text-gray-700 mb-4 text-center">Entre em contato conosco para qualquer dúvida ou problema.</p>
+            <ul class="space-y-3 text-lg text-gray-800">
+                <li class="flex items-center gap-2"><i class="fas fa-phone-alt text-primary-blue"></i> Telefone: (11) 98765-4321</li>
+                <li class="flex items-center gap-2"><i class="fas fa-envelope text-primary-blue"></i> Email: contato@poloarfri.com.br</li>
+                <li class="flex items-center gap-2"><i class="fab fa-whatsapp text-primary-blue"></i> WhatsApp: (11) 91234-5678</li>
+            </ul>
+            <p class="text-sm text-gray-500 mt-4 text-center">Horário de Atendimento: Seg-Sex, 9h-18h</p>
+            <button class="mt-6 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-full w-full transition duration-300" onclick="showScreen('homeScreen')">Voltar à Loja</button>
+        </section>
+
+        <!-- Tela de Promoções -->
+        <section id="promoScreen" class="hidden bg-white p-8 rounded-xl shadow-lg border border-blue-200 max-w-2xl mx-auto my-10">
+            <h2 class="text-3xl font-heading font-bold text-center text-primary-blue mb-6">Nossas Promoções!</h2>
+            <p class="text-gray-700 mb-8 text-center">Confira os produtos com os melhores descontos!</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Exemplo de item em promoção -->
+                <div class="bg-blue-50 p-4 rounded-lg shadow-sm flex items-center gap-4">
+                    <img src="https://placehold.co/100x100/A7D9F5/1E40AF?text=Promoção" alt="" class="rounded-md">
+                    <div>
+                        <h4 class="text-xl font-semibold text-primary-blue">Ar Condicionado com 15% OFF!</h4>
+                        <p class="text-gray-600">De: <span class="line-through">R$1.600,00</span> Por: <span class="font-bold text-red-600">R$1.360,00</span></p>
+                        <button class="text-secondary-blue hover:underline text-sm mt-1">Ver Detalhes</button>
+                    </div>
+                </div>
+                 <div class="bg-blue-50 p-4 rounded-lg shadow-sm flex items-center gap-4">
+                    <img src="https://placehold.co/100x100/A7D9F5/1E40AF?text=Desconto" alt="" class="rounded-md">
+                    <div>
+                        <h4 class="text-xl font-semibold text-primary-blue">Máquina de Lavar com 10% OFF!</h4>
+                        <p class="text-gray-600">De: <span class="line-through">R$1.800,00</span> Por: <span class="font-bold text-red-600">R$1.620,00</span></p>
+                        <button class="text-secondary-blue hover:underline text-sm mt-1">Ver Detalhes</button>
+                    </div>
+                </div>
+            </div>
+            <button class="mt-8 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-full w-full transition duration-300" onclick="showScreen('homeScreen')">Voltar à Loja</button>
+        </section>
+
+        <!-- Tela de Detalhe do Produto (exemplo simples) -->
+        <section id="productDetailScreen" class="hidden bg-white p-8 rounded-xl shadow-lg border border-blue-200 max-w-xl mx-auto my-10 text-center">
+            <h2 class="text-3xl font-heading font-bold text-primary-blue mb-6" id="detailProductName"></h2>
+            <img id="detailProductImage" src="" alt="Produto Detalhado" class="w-2/3 h-64 object-contain mx-auto rounded-lg mb-4">
+            <p class="text-xl font-bold text-green-600 mb-2" id="detailProductPrice"></p>
+            <p class="text-md text-gray-700 mb-4" id="detailProductCondition"></p>
+            <p class="text-gray-600 mb-6">
+                Este é um exemplo da página de detalhes do produto. Aqui você pode adicionar uma descrição mais longa,
+                especificações técnicas, avaliações de clientes e opções de compra.
+            </p>
+            <button class="bg-primary-blue hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full transition duration-300">Adicionar ao Carrinho</button>
+            <button class="mt-6 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-full w-full transition duration-300" onclick="showScreen('homeScreen')">Voltar à Loja</button>
+        </section>
+
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-primary-blue text-white text-center py-6 mt-8 shadow-inner">
+        <p>&copy; 2025 POLOARFRI. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Dados dos produtos
+        const products = [
+            // Ar Condicionado
+            { id: 'ac09', name: 'Ar Condicionado Consul 7500 Btus', price: 'R$200,00', imageUrl: 'https://static.webarcondicionado.com.br/blog/uploads/2013/08/1369158960_512125225_3-Ar-Condicionado-Consul-7500-Btus-QF-usado-Novo-Hamburgo.jpg', category: 'ar_condicionado', condition: 'Muito Bom' },
+            { id: 'ac05', name: 'Ar Condicionado Split Universal', price: 'R$800,00', imageUrl: 'https://moveislinhares.vteximg.com.br/arquivos/ids/234611-430-430/114208-1.jpg', category: 'ar_condicionado', condition: 'Excelente' },
+            { id: 'ac01', name: 'Ar Condicionado Midea Airvolution 12000 Btus', price: 'R$1.600,00', imageUrl: 'https://martinelloeletrodomesticos.fbitsstatic.net/img/p/ar-condicionado-12000-btus-split-midea-airvolution-42affci-38tfci-220v-79295/265887.jpg?w=482&h=482&v=no-change&qs=ignore', category: 'ar_condicionado', condition: 'Novo' },
+
+            // Frigobar
+            { id: 'fb08', name: 'Frigobar Compacto 80 Litros', price: 'R$100,00', imageUrl: 'https://http2.mlstatic.com/D_632297-MLA84850488559_052025-C.jpg', category: 'frigobar', condition: 'Bom' },
+            { id: 'fb04', name: 'Frigobar EOS 71 Litros', price: 'R$500,00', imageUrl: 'https://www.lojasebem.com.br/img/products/frigobar-geladeirinha-geladeira-refrigerador-hotel-71-litros-eos_1_1200.jpg', category: 'frigobar', condition: 'Excelente' },
+            { id: 'fb01', name: 'Frigobar Black Edition', price: 'R$1.000,00', imageUrl: 'https://fujiokadistribuidor.vteximg.com.br/arquivos/ids/232626', category: 'frigobar', condition: 'Novo' },
+
+            // Ventiladores e Climatizadores
+            { id: 'ven_col', name: 'Ventilador de Coluna Arno Silence Force', price: 'R$250,00', imageUrl: 'https://lojasafubra.vtexassets.com/arquivos/ids/187485-800-auto?v=638113776247330000&width=800&height=auto&aspect=true', category: 'ventiladores_climatizadores', condition: 'Novo' },
+            { id: 'clim_ar', name: 'Climatizador de Ar Portátil Philco', price: 'R$450,00', imageUrl: 'https://lojasimperio-s3.s3.amazonaws.com/lojasimp/assets/products-images/6684e889-b8b9-43a9-ae92-2cef27bc97f5.webp', category: 'ventiladores_climatizadores', condition: 'Excelente' },
+            { id: 'ven_mesa', name: 'Ventilador de Mesa Mallory', price: 'R$120,00', imageUrl: 'https://images.tcdn.com.br/img/img_prod/615021/ventilador_de_mesa_com_fluxo_ar_articulado_silencioso_usb_3_velocidades_20cm_8916_1_b51a680604c736aac27af3206fc969d5.jpg', category: 'ventiladores_climatizadores', condition: 'Muito Bom' },
+            { id: 'clim_umid', name: 'Climatizador Umidificador e Purificador', price: 'R$600,00', imageUrl: 'https://cdn.leroymerlin.com.br/products/ventilador_climatizador_40cm_127v_equation_92011906_a2a9_600x600.jpg', category: 'ventiladores_climatizadores', condition: 'Novo' },
+
+
+            // Máquinas de Lavar
+            { id: 'lavas_10', name: 'Lava e Seca Samsung 10kg', price: 'R$2.500,00', imageUrl: 'https://static1.efacil.com.br/wcsstore/ExtendedSitesCatalogAssetStore/Imagens/360/2223291_01.jpg', category: 'maquinas_lavar', condition: 'Novo' },
+            { id: 'lavar_12', name: 'Máquina de Lavar Brastemp 12kg', price: 'R$1.800,00', imageUrl: 'https://a-static.mlcdn.com.br/1500x1500/lavadora-de-roupas-brastemp-13kg-cesto-inox-12-programas-de-lavagem-branca-bwk13/magazineluiza/237902100/85bd62db25067b0c81d21d9e3251dddb.jpg', category: 'maquinas_lavar', condition: 'Excelente' },
+            { id: 'tanq_05', name: 'Tanquinho Colormaq 5kg', price: 'R$450,00', imageUrl: 'https://a-static.mlcdn.com.br/280x210/tanquinho-de-lavar-roupas-semiautomatico-colormaq-10kg-lcs-10-br/magazineluiza/224108400/ed34d940d77858d7950ca6c93bd9ea92.jpg', category: 'maquinas_lavar', condition: 'Muito Bom' },
+
+            // Fogões e Fornos
+            { id: 'fogao_04', name: 'Fogão 4 Bocas Brastemp', price: 'R$700,00', imageUrl: 'https://a-static.mlcdn.com.br/280x210/fogao-4-bocas-esmaltec-preto-ideal-pop-4120/magazineluiza/238635100/9d601479c32abde39275166a1de03539.jpg', category: 'fogões_fornos', condition: 'Novo' },
+            { id: 'forno_el', name: 'Forno Elétrico Embutir 45L', price: 'R$950,00', imageUrl: 'https://casaferrari.cdn.magazord.com.br/img/2024/04/produto/49835/cooktop-safe-nardelli-5b-perfil.jpg?ims=fit-in/600x600/filters:fill(white)', category: 'fogões_fornos', condition: 'Excelente' },
+            { id: 'fogao_emb', name: 'Fogão de Embutir 5 Bocas Electrolux', price: 'R$1.200,00', imageUrl: 'https://compracerta.vtexassets.com/arquivos/ids/1007155-800-auto?v=638785270165170000&width=800&height=auto&aspect=true', category: 'fogões_fornos', condition: 'Reembalado' },
+
+            // Eletroportáteis
+            { id: 'liq_bt', name: 'Liquidificador Britânia Turbo', price: 'R$120,00', imageUrl: 'https://m.media-amazon.com/images/I/51N3Xi4JJML._UF894,1000_QL80_.jpg', category: 'eletroportateis', condition: 'Novo' },
+            { id: 'caf_exp', name: 'Cafeteira Expresso Oster', price: 'R$400,00', imageUrl: 'https://cafestore.vteximg.com.br/arquivos/ids/157528-1000-1000/cafeteira-lov-tres-coracoes-vermelha.jpg?v=637243893717900000', category: 'eletroportateis', condition: 'Excelente' },
+            { id: 'pass_vap', name: 'Ferro de Passar a Vapor Philips Walita', price: 'R$80,00', imageUrl: 'https://www.havan.com.br/media/catalog/product/cache/73a52df140c4d19dbec2b6c485ea6a50/f/e/ferro-de-passar-a-vapor-e-a-seco-electrolux-efficient-esi11_653582_1.webp', category: 'eletroportateis', condition: 'Muito Bom' }
+        ];
+
+        // Mapeamento de categorias para títulos exibíveis
+        const categoryTitles = {
+            'ar_condicionado': 'AR CONDICIONADOS',
+            'frigobar': 'FRIGOBAR',
+            'ventiladores_climatizadores': 'VENTILADORES E CLIMATIZADORES',
+            'maquinas_lavar': 'MÁQUINAS DE LAVAR',
+            'fogões_fornos': 'FOGÕES E FORNOS',
+            'eletroportateis': 'ELETROPORTÁTEIS'
+        };
+
+        // Função para criar o HTML de um cartão de produto
+        function createProductCard(product) {
+            return `
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col items-center p-6 border border-blue-200 hover:shadow-xl transition-shadow duration-300 cursor-pointer" onclick="showProductDetail('${product.id}')">
+                    <h3 class="text-2xl font-semibold text-primary-blue mb-2">${product.name}</h3>
+                    <p class="text-xl font-bold text-green-600 mb-4">${product.price}</p>
+                    <img src="${product.imageUrl}" alt="${product.name}" class="w-full h-48 object-contain rounded-lg mb-4 transform hover:scale-105 transition-transform duration-300">
+                    <p class="text-sm text-gray-500 mb-4">Condição: <span class="font-semibold text-primary-blue">${product.condition}</span></p>
+                    <i class="fas fa-cart-plus cart-icon"></i>
+                </div>
+            `;
+        }
+
+        // Função para renderizar os produtos na página
+        function renderProducts(filteredProducts) {
+            const productsContainer = document.getElementById('productsContainer');
+            const noProductsMessage = document.getElementById('noProductsMessage');
+            productsContainer.innerHTML = ''; // Limpa o container antes de renderizar
+
+            if (filteredProducts.length === 0) {
+                noProductsMessage.classList.remove('hidden');
+                return;
+            } else {
+                noProductsMessage.classList.add('hidden');
+            }
+
+            // Agrupar produtos por categoria
+            const productsByCategory = filteredProducts.reduce((acc, product) => {
+                if (!acc[product.category]) {
+                    acc[product.category] = [];
+                }
+                acc[product.category].push(product);
+                return acc;
+            }, {});
+
+            // Renderizar cada seção de categoria na ordem definida por categoryTitles
+            for (const categoryKey in categoryTitles) {
+                if (productsByCategory[categoryKey] && productsByCategory[categoryKey].length > 0) {
+                    const sectionTitle = categoryTitles[categoryKey];
+                    const sectionHtml = `
+                        <h2 class="text-4xl font-heading font-bold text-center text-primary-blue mb-8 py-4 bg-white rounded-lg shadow-md mt-12">${sectionTitle}</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+                            ${productsByCategory[categoryKey].map(createProductCard).join('')}
+                        </div>
+                    `;
+                    productsContainer.insertAdjacentHTML('beforeend', sectionHtml);
+                }
+            }
+        }
+
+        // Função para aplicar os filtros
+        function applyFilters() {
+            const selectedCategory = document.getElementById('categoryFilter').value;
+            const selectedCondition = document.getElementById('conditionFilter').value;
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+            let filtered = products;
+
+            // Filtrar por categoria
+            if (selectedCategory !== 'all') {
+                filtered = filtered.filter(product => product.category === selectedCategory);
+            }
+
+            // Filtrar por condição
+            if (selectedCondition !== 'all') {
+                filtered = filtered.filter(product => product.condition === selectedCondition);
+            }
+
+            // Filtrar por termo de pesquisa (nome do produto)
+            if (searchTerm) {
+                filtered = filtered.filter(product => product.name.toLowerCase().includes(searchTerm));
+            }
+
+            renderProducts(filtered);
+        }
+
+        // Função para mostrar uma tela específica
+        function showScreen(screenId, productId = null) {
+            // Esconde todas as telas
+            document.querySelectorAll('main section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            // Esconde barra de filtros e pesquisa
+            document.getElementById('filterBar').classList.add('hidden');
+            document.getElementById('searchInput').parentNode.classList.add('hidden');
+
+
+            // Mostra a tela desejada
+            document.getElementById(screenId).classList.remove('hidden');
+
+            // Lógica específica para a tela de detalhes do produto
+            if (screenId === 'productDetailScreen' && productId) {
+                const product = products.find(p => p.id === productId);
+                if (product) {
+                    document.getElementById('detailProductName').textContent = product.name;
+                    document.getElementById('detailProductImage').src = product.imageUrl;
+                    document.getElementById('detailProductImage').alt = `Imagem de ${product.name}`;
+                    document.getElementById('detailProductPrice').textContent = product.price;
+                    document.getElementById('detailProductCondition').textContent = `Condição: ${product.condition}`;
+                }
+            }
+
+            // Mostra barra de filtros e pesquisa apenas na homeScreen
+            if (screenId === 'homeScreen') {
+                document.getElementById('filterBar').classList.remove('hidden');
+                document.getElementById('searchInput').parentNode.classList.remove('hidden');
+            }
+        }
+
+        // Função para mostrar detalhes do produto
+        function showProductDetail(productId) {
+            showScreen('productDetailScreen', productId);
+        }
+
+        // Adicionar listeners de eventos
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts(products); // Renderiza todos os produtos na carga inicial
+
+            document.getElementById('homeLogo').addEventListener('click', () => showScreen('homeScreen'));
+            document.getElementById('loginBtn').addEventListener('click', () => showScreen('loginScreen'));
+            document.getElementById('supportBtn').addEventListener('click', () => showScreen('supportScreen'));
+            document.getElementById('promoBtn').addEventListener('click', () => showScreen('promoScreen'));
+
+            document.getElementById('applyFilterBtn').addEventListener('click', applyFilters);
+            document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+            document.getElementById('conditionFilter').addEventListener('change', applyFilters);
+            document.getElementById('searchInput').addEventListener('keyup', applyFilters); // Filtra ao digitar
+        });
+    </script>
+</body>
+</html>
